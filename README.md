@@ -2,10 +2,22 @@
 Scripts to help make life less lame!
 
 ###br.sh
-Creates a line of `=` signs accross the screen with a red backround.
-  
 Useful for when you need a visual break on the command line.
 (Better than hitting enter a bunch of times...)
+
+Usage:
+
+    br [-f fg_color] [-b bg_color] [a label for the bar]
+
+With no args, it creates a line of `=` signs accross the screen with a red backround.
+
+added two options and the ability to add a label.
+
+-f [color] sets the foreground color for the break
+
+-b [color] sets the background color for the break
+
+any non-arg things will be turned into a label for the break. This makes it easy to search back through the command terminal for stuff.
 
 ###qsync.sh
 Sets up quick sync stuff that uses `rsync` to keep two directories synced.
