@@ -3,17 +3,14 @@
 cols=$(tput cols)
 fg_color="black"
 bg_color="red"
-args_used=0
 
-while getopts ":b:f:" opt; do
+while getopts "b:f:" opt; do
 	case $opt in
 		b)
 			bg_color="$OPTARG"
-			args_used=$args_used+2
 			;;
 		f)
 			fg_color="$OPTARG"
-			args_used=$args_used+2
 			;;
 		\?)
 			echo "Invalid option: -$OPTARG" >&2
@@ -25,6 +22,9 @@ while getopts ":b:f:" opt; do
 			;;
 	esac
 done
+
+# Shift based on the number of args used
+shift $((OPTIND - 1))
 
 case $fg_color in
 	black)
@@ -78,11 +78,9 @@ case $bg_color in
 		bg_color=47
 esac
 
-args_left=`expr $# - $args_used`
 message=""
 # Get the message put together
-for y in $(seq 1 $args_left); do
-	eval current_arg="\$$y"
+for current_arg in $@; do
 	eval message="\"\$message $current_arg\""
 done
 
@@ -92,9 +90,10 @@ else
 	message=""
 fi
 
+# Find the length of the message
 msg_len=`expr length "$message"`
+# Find the total number of ='s needed
 total_eq=`expr $cols - $msg_len`
-# num_eq=`expr $total_eq / 2`
 num_eq=$total_eq
 
 # for x in $(seq 1 $num_eq)
