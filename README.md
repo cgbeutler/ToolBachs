@@ -28,7 +28,12 @@ This is designed for people who like to work on their own computer with all thei
 
 `qsync.sh pull [target]` can be used in directories with a `.qsync` file to sync the directory with the targets changes.
 
+`qsync.sh lpull [target]` do a dry run of `pull` without changes being applied. (uses -n on rsync)
+
 `qsync.sh push [target]` can be used in directories with a `.qsync` file to sync the directory's changes with the target.
+
+`qsync.sh lpush [target]` do a dry run of `push` without changes being applied. (uses -n on rsync)
+
 
 ######Example of use:
     qsync.sh setup
