@@ -1,20 +1,20 @@
 #!/bin/bash
 # Helper function
 array_contains () {
-    local array="$1[@]"
-    local seeking=$2
-    local in=1
-    for element in "${!array}"; do
-        if [[ $element == $seeking ]]; then
-            in=0
-            break
-        fi
-    done
-    return $in
+	local array="$1[@]"
+	local seeking=$2
+	local in=1
+	for element in "${!array}"; do
+		if [[ $element == $seeking ]]; then
+			in=0
+			break
+		fi
+	done
+	return $in
 }
 
 norp_operations=( setup )
-rp_operations=( push pull )
+rp_operations=( push pull lpush lpull )
 
 # Check if the .qsync file is in this folder
 if [ ! -r .qsync ]; then
@@ -34,10 +34,11 @@ if [ ! -r .qsync ]; then
 targets=( sample_target )
 
 # Target variables
+# For best results, use folder and end with a '/'
 #   Examples:
 #   home_rpm="~/rpm/"
 #   work_rpm="steve@work_hostname:~/rpm/"
-sample_target="username@hostname:file/path"
+sample_target="username@hostname:file/path/"
 
 #========== Excludes ==========
 # Shell array of files to exclude with --exclude=filepattern
@@ -63,26 +64,25 @@ source .qsync
 
 # Check for a target given on the command line
 if [ "$#" -ne 2 ]; then
-	echo "Usage: qsync.sh [pull|push] [target]" >&2
-	echo -n "  targets: "
-	printf '%s ' "${targets[@]}"
-	echo ''
+	echo "Usage: qsync.sh [pull|push|lpull|lpush] [target]" >&2
+	echo -n "  targets: " >&2
+	printf '%s\n' "${targets[@]}" >&2
 	exit 1
 fi
 
 # Check that the operation is in the list
 if ! array_contains rp_operations $1; then
-	echo "Error: Unrecognized operation $1"
-	echo "Operations available:"
-	printf '%s\n' "${rp_operations[@]}"
+	echo "Error: Unrecognized operation $1" >&2
+	echo "Operations available:" >&2
+	printf '%s\n' "${rp_operations[@]}" >&2
 	exit 1
 fi
 
 # Check that the target is in the list of targets
 if ! array_contains targets $2; then
-	echo "Error: Unrecognized target $2"
-	echo "Targets available:"
-	printf '%s\n' "${targets[@]}"
+	echo "Error: Unrecognized target $2" >&2
+	echo "Targets available:" >&2
+	printf '%s\n' "${targets[@]}" >&2
 	exit 1
 fi
 
@@ -98,10 +98,20 @@ set +f
 # Here we go! Lets move that stuff!
 case $1 in
 	pull)
+		echo "rsync -ravh ${excludes[@]} ${target} ."
 		rsync -ravh "${excludes[@]}" "${target}" .
 		;;
 	push)
+		echo "rsync -ravhn ${excludes[@]} . ${target}"
 		rsync -ravh "${excludes[@]}" . "${target}"
+		;;
+	lpull)
+		echo "rsync -ravhn ${excludes[@]} ${target} ."
+		rsync -ravhn "${excludes[@]}" "${target}" .
+		;;
+	lpush)
+		echo "rsync -ravhn ${excludes[@]} . ${target}"
+		rsync -ravhn "${excludes[@]}" . "${target}"
 		;;
 esac
 # =========================
