@@ -102,7 +102,7 @@ case $1 in
 		rsync -ravh "${excludes[@]}" "${target}" .
 		;;
 	push)
-		echo "rsync -ravhn ${excludes[@]} . ${target}"
+		echo "rsync -ravh ${excludes[@]} . ${target}"
 		rsync -ravh "${excludes[@]}" . "${target}"
 		;;
 	lpull)
