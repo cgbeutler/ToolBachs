@@ -1,4 +1,8 @@
-#Lame Scripts
+![Bach](http://www.jsbach.net/bass/elements/bass-hanewinckel-title.jpg)
+
+TODO: make a picture of bach with tools... instead of a bass
+
+#ToolBachs
 Scripts to help make life less lame!
 
 ###br.sh
