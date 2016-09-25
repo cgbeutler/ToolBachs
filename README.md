@@ -23,6 +23,11 @@ added two options and the ability to add a label.
 
 any non-arg things will be turned into a label for the break. This makes it easy to search back through the command terminal for stuff.
 
+###gits.py
+Quick python script that lists all of the git repos in the current directory
+
+The plan is to later expand this to provide more information. If this doesn't get more useful... it may get cut.
+
 ###qsync.sh
 Sets up quick sync stuff that uses `rsync` to keep two directories synced.
 
