@@ -15,13 +15,15 @@ Usage:
 
 With no args, it creates a line of `=` signs accross the screen with a red backround.
 
-added two options and the ability to add a label.
-
 -f [color] sets the foreground color for the break
 
 -b [color] sets the background color for the break
 
 any non-arg things will be turned into a label for the break. This makes it easy to search back through the command terminal for stuff.
+
+Other Possible Usages:
+
+    br; run-some-long-output-thang; br command 1 complete; run-some-other-long-thing; br command 2 complete
 
 ###gits.py
 Quick python script that lists all of the git repos in the current directory
