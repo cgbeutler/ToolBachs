@@ -4,6 +4,8 @@ cols=$(tput cols)
 fg_color="black"
 bg_color="red"
 
+# Add error code flag? if [ $? = 0 ]; then br -b green; else br $?; fi;
+
 while getopts "b:f:" opt; do
 	case $opt in
 		b)
