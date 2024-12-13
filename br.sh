@@ -93,7 +93,7 @@ else
 fi
 
 # Find the length of the message
-msg_len=`expr length "$message"`
+msg_len=${#message}
 # Find the total number of ='s needed
 total_eq=`expr $cols - $msg_len`
 num_eq=$total_eq
